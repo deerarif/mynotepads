@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db
+    networks:
+      - express-mongo
+    expose:
+      - 27017
+  server:
+    build: ./server
+    image: deerarif/note_serv:latest
+    expose: 
+      - 8080
+    volumes:
+      - logs:/usr/src/app/logs
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - express-mongo
+      - react-express
+    depends_on:
+      - mongodb
+  client:
+    build: ./Client
+    image: deerarif/note_front:latest
+    ports:
+      - "80:3000"
+    volumes:
+      - ./Client:/usr/src/app/frontend
+      - /usr/src/app/frontend/node_modules
+    networks:
+      - react-express
+    depends_on:
+      - server
+networks:
+  react-express:
+  express-mongo:
+volumes:
+  data:
+  logs:
