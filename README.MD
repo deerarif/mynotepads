@@ -13,7 +13,7 @@ This is my fist project using MERN Stack for building Notepads web/apps
 Clone the project
 
 ```bash
-  git clone https://deerarif/mynotepads.git
+  git clone https://www.github.com/deerarif/mynotepads.git
 ```
 
 Go to the project directory
